@@ -1,9 +1,9 @@
 # webik01website
 Git Repo for webik ik01 website
 
-Technisch ontwerp – Matthijs, Nelson en Cilia Groep ik01
+## Technisch ontwerp – Matthijs, Nelson en Cilia Groep ik01
 
-Feature 1: registreren/account aanmaken
+### Feature 1: registreren/account aanmaken
 
 Model:
   • Een bestand models/register.py
@@ -25,7 +25,7 @@ Controller:
     o Sla wachtwoord (store_password) op in database als hash
     o Redirect naar /index.html als registreren is gelukt, anders /register.html
 
-Feature 2: inloggen
+### Feature 2: inloggen
 
 Model:
   • Een bestand models/login.py
@@ -48,7 +48,7 @@ Controller:
     o Sla user_id in session op als inloggen is gelukt
     o Redirect naar /index.html als inloggen is gelukt, anders /login.html
     
-Feature 3: uitloggen
+### Feature 3: uitloggen
 
 Model:
   • Een bestand models/logout.py
@@ -65,7 +65,7 @@ Controller:
   • Session.clear()
   • Laat login.html zien
   
-Feature 4: foto posten
+### Feature 4: foto posten
 
 Model:
   • Een bestand models/posten.py
@@ -88,7 +88,7 @@ Controller:
     o Sla photo in database op als posten is gelukt
     o Redirect naar /index.html als posten is gelukt, anders /posten.html
     
-Feature 5: volgen
+### Feature 5: volgen
 
 Model:
   • Een bestand models/follow.py
@@ -116,7 +116,7 @@ Controller:
     o Sla follower/following op in database als volgen/gevolgd worden gelukt is
     o Redirect naar /index.html als volgen is gelukt, anders /follow.html
     
-Feature 6: index (homepagina/timeline)
+### Feature 6: index (homepagina/timeline)
 
 Model:
   • Een bestand models/index.py
@@ -137,7 +137,7 @@ Controller:
     o Alle foto’s van de mensen die de gebruiker volgt aanroepen en op
       chronologische volgorde laten zien in een lijst
 
-Feature 7: foto’s liken
+### Feature 7: foto’s liken
 
 Model:
   • Een bestand models/liken.py
@@ -161,7 +161,7 @@ Controller:
     o Sla like op, tel bij het aantal likes op bij betreffende foto
     o Redirect naar /index.html
 
-Feature 7: foto’s commenten
+### Feature 8: foto’s commenten
 
 Model:
   • Een bestand models/comment.py
@@ -185,7 +185,8 @@ Controller:
     o Sla comment op, tel bij het aantal comments op bij betreffende foto, en laat
       comment onder de foto zien
     o Redirect naar /index.html
-      URL’s Javascript plugins to use:
+    
+ ### URL’s Javascript plugins to use:
       
 like button:
 
