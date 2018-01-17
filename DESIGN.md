@@ -28,7 +28,7 @@ Controller:
 ### Feature 2: inloggen
 
 Model:
-  • Een bestand models/login.py
+  * Een bestand models/login.py
   • Een class user.py
     o Met attributen: id en naam
   • Een functie: login(name, password)
