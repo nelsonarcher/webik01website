@@ -6,24 +6,24 @@ Git Repo for webik ik01 website
 ### Feature 1: registreren/account aanmaken
 
 Model:
-  • Een bestand models/register.py
-  • Een functie: register()
-    o returned homepagina of registratiepagina
+  * Een bestand models/register.py
+  * Een functie: register()
+    * returned homepagina of registratiepagina
     
 View:
-  • Een template: templates/register.html
-  • Evt. een stylesheet: register.css
+  * Een template: templates/register.html
+  * Evt. een stylesheet: register.css
   
 Controller:
-  • Een bestand application.py
-  • Een route: /register voor de methodes GET en POST
-  • GET:
-    o Laat register.html zien   
-  • POST:
-    o Roep models.register() aan met de ingevulde naam / wachtwoord
-    o Sla user_id in database en session op als registreren is gelukt
-    o Sla wachtwoord (store_password) op in database als hash
-    o Redirect naar /index.html als registreren is gelukt, anders /register.html
+  * Een bestand application.py
+  * Een route: /register voor de methodes GET en POST
+  * GET:
+    * Laat register.html zien   
+  * POST:
+    * Roep models.register() aan met de ingevulde naam / wachtwoord
+    * Sla user_id in database en session op als registreren is gelukt
+    * Sla wachtwoord (store_password) op in database als hash
+    * Redirect naar /index.html als registreren is gelukt, anders /register.html
 
 ### Feature 2: inloggen
 
