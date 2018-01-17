@@ -186,13 +186,23 @@ Controller:
       comment onder de foto zien
     o Redirect naar /index.html
       URL’s Javascript plugins to use:
+      
 like button:
+
     https://github.com/uagrace/like-dislike
+    
     https://www.jqueryscript.net/social-media/Minimal-Like-Dislike-Button-Plugin-with-jQuery-likedislike.html
+
 firebase: 
+
     http://www.londonacademyofit.co.uk/learning-blog/javascript/add-like-button-blogpostssimple-javascript/
+    
 real time comment box below picture:
+
     jquery-comments: http://viima.github.io/jquery-comments/
+    
                      https://blog.pusher.com/build-live-comments-feature-using-javascript/
+                     
 Flask frame: 
+
     http://flask.pocoo.org/
