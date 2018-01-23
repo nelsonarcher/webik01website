@@ -29,17 +29,91 @@ db = SQL("sqlite:///database.db")
 
 @app.route("/")
 @login_required
+def index():
 
-    index()
+    return apology("TODO")
+
 
 @app.route("/login", methods=["GET", "POST"])
+def login():
+    """Log user in."""
 
-    login()
+    # forget any user_id
+    session.clear()
+
+    # if user reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+
+        # ensure username was submitted
+        if not request.form.get("username"):
+            return apology("must provide username")
+
+        # ensure password was submitted
+        elif not request.form.get("password"):
+            return apology("must provide password")
+
+        # query database for username
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+
+        # ensure username exists and password is correct
+        if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
+            return apology("invalid username and/or password")
+
+        # remember which user has logged in
+        session["user_id"] = rows[0]["id"]
+
+        # redirect user to home page
+        return redirect(url_for("index"))
+
+    # else if user reached route via GET (as by clicking a link or via redirect)
+    else:
+        return render_template("login.html")
 
 @app.route("/logout")
+def logout():
+    """Log user out."""
 
-    logout()
+    # forget any user_id
+    session.clear()
+
+    # redirect user to login form
+    return redirect(url_for("login"))
 
 @app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user."""
 
-    register()
+    # forget any user_id
+    session.clear()
+
+    # if user reached route via POST (as by submitting a form via POST)
+    if request.method == "POST":
+        # ensure username was submitted
+        if not request.form.get("username"):
+            return apology("must provide username")
+        # ensure password was submitted
+        if not request.form.get("password"):
+            return apology("must provide password")
+        #ensure again password submitted
+        if not request.form.get("password_again"):
+            return apology("must provide password again")
+        # make sure passwords match
+        if request.form.get("password") and not request.form.get("password_again"):
+            return apology("passwords do not match")
+
+        # encrypt password
+        store_password = pwd_context.encrypt(request.form.get("password"))
+
+        # make sure username is unique
+        result = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=request.form.get("username"), hash=store_password)
+        if not result:
+            return apology("Username already exists")
+
+        # store id
+        rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+        session["user_id"] = rows[0]["id"]
+
+        return redirect(url_for("index"))
+
+    else:
+        return render_template("register.html")
