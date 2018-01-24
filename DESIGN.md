@@ -6,7 +6,6 @@ Git Repo for webik ik01 website!
 ### Feature 1: registreren/account aanmaken
 
 Model:
-  * Een bestand models/register.py
   * Een functie: register()
     * returned homepagina of registratiepagina
 
@@ -28,7 +27,6 @@ Controller:
 ### Feature 2: inloggen
 
 Model:
-  * Een bestand models/login.py
   * Een class user.py
     * Met attributen: id en naam
   * Een functie: login(name, password)
@@ -51,7 +49,6 @@ Controller:
 ### Feature 3: uitloggen
 
 Model:
-  * Een bestand models/logout.py
   * Een functie: logout()
     * returned de loginpagina of None
 
