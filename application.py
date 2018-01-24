@@ -59,18 +59,18 @@ def login():
 
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            return render_template("apology.html)
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password")
+            return render_template("apology.html)
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # ensure username exists and password is correct
         if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return apology("invalid username and/or password")
+            return render_template("apology.html)
 
         # remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -103,16 +103,16 @@ def register():
     if request.method == "POST":
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            return render_template("apology.html)
         # ensure password was submitted
         if not request.form.get("password"):
-            return apology("must provide password")
+            return render_template("apology.html)
         #ensure again password submitted
         if not request.form.get("password_again"):
-            return apology("must provide password again")
+            return render_template("apology.html)
         # make sure passwords match
         if request.form.get("password") and not request.form.get("password_again"):
-            return apology("passwords do not match")
+            return render_template("apology.html)
 
         # encrypt password
         store_password = pwd_context.encrypt(request.form.get("password"))
@@ -120,7 +120,7 @@ def register():
         # make sure username is unique
         result = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=request.form.get("username"), hash=store_password)
         if not result:
-            return apology("Username already exists")
+            return render_template("apology.html)
 
         # store id
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
