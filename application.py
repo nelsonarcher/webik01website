@@ -43,7 +43,8 @@ def explore():
 @login_required
 def profile():
 
-    username = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+    username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
+
     return render_template("profile.html", username=username)
 
 @app.route("/login", methods=["GET", "POST"])
