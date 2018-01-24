@@ -31,8 +31,20 @@ db = SQL("sqlite:///database.db")
 @login_required
 def index():
 
-    return apology("TODO")
+    return render_template("apology.html")
 
+@app.route("/explore")
+@login_required
+def explore():
+
+    return render_template("explore.html")
+
+@app.route("/profile")
+@login_required
+def profile():
+
+    username = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
+    return render_template("profile.html", username=username)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
