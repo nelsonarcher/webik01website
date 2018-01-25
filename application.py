@@ -54,6 +54,10 @@ def profile():
 @login_required
 def post():
 
+    if request.method == "POST":
+
+        store_location = db.execute("INSERT INTO photos (location) VALUES (:location)", location=?????)
+
 
     return render_template("post.html")
 
