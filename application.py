@@ -18,8 +18,6 @@ if app.config["DEBUG"]:
         response.headers["Pragma"] = "no-cache"
         return response
 
-
-
 # configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
@@ -47,14 +45,13 @@ def profile():
 
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
 
-    for x in range(len(photo)):
+    for x in range(len(photos):
         page = db.execute("SELECT photo FROM photo WHERE id=:id", id=session["user_id"])
 
-    return render_template("profile.html", username=username, page=page)
 
 
-@app.route('/upload', methods=['GET', 'POST'])
-def upload():
+@app.route('/post', methods=['GET', 'POST'])
+def post():
 
     return render_template('post.html')
 
