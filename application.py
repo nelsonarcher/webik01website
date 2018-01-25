@@ -46,11 +46,11 @@ def profile():
 
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
 
-    for x in range(len(photos):
-        page = db.execute("SELECT photo FROM photo WHERE id=:id", id=session["user_id"])
+    for x in range(len(photos)):
+        page = db.execute("SELECT photo FROM photos WHERE id=:id", id=session["user_id"])
 
 
-    return render_template("profile.html", username=username, page=?????)
+    return render_template("profile.html", username=username, page=page)
 
 
 
