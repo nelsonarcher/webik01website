@@ -1,32 +1,14 @@
 {% extends "layout.html" %}
 
-<div id="{{ post.slug }}" class="panel panel-default">
-    <div class="panel-heading">
-        <a href="{{ post.author.get_absolute_url }}">{{ post.author }}</a> |
-        <a href="{% 'posts:view' post.slug %}">{{ post.date_created|timesince }}</a>
-        {% if user ==  post.author %}
-            | <a href="{% 'posts:update' post.slug %}">Update</a> |
-            <a href="{% 'posts:delete' post.slug %}">Delete</a>
-        {% endif %}
-    </div>
-    <div class="panel-body">
-        <img src="{{ post.photo.url }}" alt="{{ post.caption }}" width="500px" height="500px" />
-        <p>{{ post.caption }}</p>
-    </div>
-    <div class="panel-footer">
-        {% if post.liker|length %}
-            <a href="#" data-toggle="modal" data-target="#{{ post.slug }}_likers_modal">Likes: {{ post.liker|length }}</a>
-            {% include 'posts/likers.html' %}
-        {% else %}
-            <p>Be the first to like this.</p>
-        {% endif %}
-        <div class="input-group">
-            {% if user in post.liker %}
-                <a href="{% 'posts:unlike' post.slug %}" class="input-group-addon btn btn-default red"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
-            {% else %}
-                <a href="{% 'posts:like' post.slug %}" class="input-group-addon btn btn-default"><span class="glyphicon glyphicon-heart" id="comment"></span></a>
-            {% endif %}
-        <input type="text" class="form-control" placeholder="Add a comment..." aria-describedby="comment">
+{% block title %}
+    Profile
+{% endblock %}
+
+{% block main %}
+    <form method=POST enctype=multipart/form-data action="{{ url_for('post') }}">
+        <input type=file name=photo>
+        <div class="form-group">
+                <button class="btn btn-default" type="submit">Upload</button>
         </div>
-    </div>
-</div>
+    </form>
+{% endblock %}
