@@ -44,9 +44,10 @@ def explore():
 def profile():
 
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
-
+    photos = db.execute("SELECT photo_id FROM location WHERE id=:id", id=session["user_id"])
+    page = []
     for x in range(len(photos)):
-        page = db.execute("SELECT photo_id FROM location WHERE id=:id", id=session["user_id"])
+        page.append(photos)
 
     return render_template("profile.html", username=username, page=page)
 
