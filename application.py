@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
+from flask.ext.uploads import Uploadset, configure_uploads, IMAGES
 
 from helpers import *
 
@@ -27,7 +28,7 @@ app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-app.configure['UPLOAD_FOLDER'] = '/Users/nelsonacher/Desktop/uploadswebik'
+app.configure['UPLOAD_FOLDER'] = '/home/ubuntu/workspace/webik01website/database.db'
 configure_uploads(app, photos)
 
 # configure CS50 Library to use SQLite database
