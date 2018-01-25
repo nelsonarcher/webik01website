@@ -24,7 +24,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///database.db")
 
@@ -50,8 +49,8 @@ def profile():
         page = db.execute("SELECT photo FROM photos WHERE id=:id", id=session["user_id"])
 
 
-    return render_template("profile.html", username=username, page=page)
 
+    return render_template("profile.html", username=username, page=page)
 
 
 @app.route('/post', methods=['GET', 'POST'])
