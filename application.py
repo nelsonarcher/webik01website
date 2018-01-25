@@ -46,15 +46,25 @@ def profile():
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
 
     for x in range(len(photos)):
-        page = db.execute("SELECT photo FROM photos WHERE id=:id", id=session["user_id"])
-
-
+        page = db.execute("SELECT photo_id FROM location WHERE id=:id", id=session["user_id"])
 
     return render_template("profile.html", username=username, page=page)
 
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
+
+    if request.method == "POST":
+
+        if not request.form.get("file"):
+           return render_template("apology.html")
+
+        new_post = db.execute("INSERT INTO location (photo_location, photo_id, id) VALUES (:photo_location, :photo_id, id)", photo_location=LOCATIEDATABASE, photo_id=session["photo_id"], id=session["user_id"])
+        if not new_post:
+            return render_template("apology.html")
+
+
+        return redirect(url_for("index"))
 
     return render_template('post.html')
 
