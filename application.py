@@ -18,11 +18,17 @@ if app.config["DEBUG"]:
         response.headers["Pragma"] = "no-cache"
         return response
 
+# config uploads
+UPLOAD_FOLDER = '/path/to/the/uploads'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif']
+
 # configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+app.configure['UPLOAD_FOLDER'] = '/Users/nelsonacher/Desktop/uploadswebik'
+configure_uploads(app, photos)
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///database.db")
@@ -50,16 +56,19 @@ def profile():
 
     return render_template("profile.html", username=username, page=page)
 
-@app.route("/post", methods=["GET", "POST"])
-@login_required
-def post():
 
-    if request.method == "POST":
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
 
-        store_location = db.execute("INSERT INTO photos (location) VALUES (:location)", location=?????)
+    photos = UploadSet('photos', IMAGES)
 
-
-    return render_template("post.html")
+    if request.method == 'POST' and 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        rec = Photo(filename=filename, user=g.user.id)
+        rec.store()
+        flash("Photo saved.")
+        return redirect(url_for('show', id=rec.id))
+    return render_template('post.html')
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
