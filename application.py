@@ -52,13 +52,12 @@ def explore():
 def profile():
 
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
-    photo = db.execute("SELECT photo_id FROM photos WHERE user_id=:id", id=session["user_id"])
-    page = []
-    for x in range(len(photo)):
-        page.append(photo)
+
+
+    page = db.execute("SELECT photo_location FROM photos WHERE user_id=:id", id=session["user_id"])
+
 
     return render_template("profile.html", username=username, page=page)
-
 
 
 @app.route('/post', methods=['GET', 'POST'])
@@ -66,7 +65,6 @@ def post():
 
     if request.method == 'POST' and 'photo' in request.files:
         filename = photos.save(request.files['photo'])
-
 
         new_post = db.execute("INSERT INTO photos (photo_location, user_id) VALUES (:photo_location, :user_id)", photo_location=filename, user_id=session["user_id"])
         if not new_post:
