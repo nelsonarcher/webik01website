@@ -31,8 +31,43 @@ db = SQL("sqlite:///database.db")
 @login_required
 def index():
 
-    return apology("TODO")
+    return render_template("apology.html")
 
+@app.route("/explore")
+@login_required
+def explore():
+
+    return render_template("explore.html")
+
+@app.route("/profile")
+@login_required
+def profile():
+
+    username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
+    photos = db.execute("SELECT photo_id FROM location WHERE id=:id", id=session["user_id"])
+    page = []
+    for x in range(len(photos)):
+        page.append(photos)
+
+    return render_template("profile.html", username=username, page=page)
+
+
+@app.route('/post', methods=['GET', 'POST'])
+def post():
+
+    if request.method == "POST":
+
+        if not request.form.get("file"):
+           return render_template("apology.html")
+
+        new_post = db.execute("INSERT INTO location (photo_location, photo_id, id) VALUES (:photo_location, :photo_id, id)", photo_location=LOCATIEDATABASE, photo_id=session["photo_id"], id=session["user_id"])
+        if not new_post:
+            return render_template("apology.html")
+
+
+        return redirect(url_for("index"))
+
+    return render_template('post.html')
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -46,18 +81,18 @@ def login():
 
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            return render_template("apology.html")
 
         # ensure password was submitted
         elif not request.form.get("password"):
-            return apology("must provide password")
+            return render_template("apology.html")
 
         # query database for username
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
 
         # ensure username exists and password is correct
         if len(rows) != 1 or not pwd_context.verify(request.form.get("password"), rows[0]["hash"]):
-            return apology("invalid username and/or password")
+            return render_template("apology.html")
 
         # remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -90,16 +125,16 @@ def register():
     if request.method == "POST":
         # ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide username")
+            return render_template("apology.html")
         # ensure password was submitted
         if not request.form.get("password"):
-            return apology("must provide password")
+            return render_template("apology.html")
         #ensure again password submitted
         if not request.form.get("password_again"):
-            return apology("must provide password again")
+            return render_template("apology.html")
         # make sure passwords match
         if request.form.get("password") and not request.form.get("password_again"):
-            return apology("passwords do not match")
+            return render_template("apology.html")
 
         # encrypt password
         store_password = pwd_context.encrypt(request.form.get("password"))
@@ -107,7 +142,7 @@ def register():
         # make sure username is unique
         result = db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", username=request.form.get("username"), hash=store_password)
         if not result:
-            return apology("Username already exists")
+            return render_template("apology.html")
 
         # store id
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))

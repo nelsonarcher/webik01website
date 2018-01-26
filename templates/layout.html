@@ -16,7 +16,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-        <title>Travel Stories: {% block title %}{% endblock %}</title>
+        <title>Travel Tales: {% block title %}{% endblock %}</title>
 
     </head>
 
@@ -33,10 +33,15 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="{{ url_for('index') }}"><span class="blue">Travel<span class="black">Stories</span></a>
+                        <a class="navbar-brand" href="{{ url_for('index') }}"><span style="color:Navy;">Travel<span style="color:Darkgray;">Tales</span></a>
                     </div>
                     <div class="collapse navbar-collapse" id="navbar">
                         {% if session.user_id %}
+                            <ul class="nav navbar-nav">
+                                <li><a href="{{ url_for('explore') }}"><span style="color:Navy;">Explore</a></li>
+                                <li><a href="{{ url_for('profile') }}"><span style="color:Navy;">Profile</a></li>
+                                <li><a href="{{ url_for('post') }}"><span style="color:Navy;">New Post</span></a></li>
+                            </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li><a href="{{ url_for('logout') }}">Log Out</a></li>
                             </ul>
