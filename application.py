@@ -3,8 +3,10 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
-
+from werkzeug.utils import secure_filename
 from helpers import *
+import os
+from flask import send_from_directory
 from PIL import Image
 # configure application
 app = Flask(__name__)
@@ -18,11 +20,17 @@ if app.config["DEBUG"]:
         response.headers["Pragma"] = "no-cache"
         return response
 
+UPLOAD_FOLDER = '/webik01website/upload-images'
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
 # configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///database.db")
@@ -51,27 +59,32 @@ def profile():
 
     return render_template("profile.html", username=username, page=page)
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
 
-    if request.method == "POST":
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('post', filename=filename)
 
-        if not request.form.get("file"):
-           return render_template("apology.html")
-
-        save_image = img.save(request.form.get("file"), "/webik01website/upload-images", "JPEG")
-
-        new_post = db.execute("INSERT INTO photos (photo_location, photo_id, id) VALUES (:photo_location, :photo_id, id)", photo_location=save_image, photo_id=session["photo_id"], id=session["user_id"])
-        if not new_post:
-            return render_template("apology.html")
-
-        rows = db.execute("SELECT * FROM photos WHERE photo_location = :photo_location", photo_location=save_image)
-        session["photo_id"] = rows[0]["photo_id"]
-
-        return redirect(url_for("index"))
-
-    return render_template('post.html')
+@app.route('/webik01website/upload-images')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
