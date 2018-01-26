@@ -3,13 +3,18 @@ from flask import Flask, flash, redirect, render_template, request, session, url
 from flask_session import Session
 from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
-from werkzeug.utils import secure_filename
+
 from helpers import *
-import os
-from flask import send_from_directory
-from PIL import Image
+
+from flask.ext.uploads import UploadSet, configure_uploads, IMAGES
+
 # configure application
 app = Flask(__name__)
+
+photos = UploadSet('photos', IMAGES)
+
+app.config['UPLOADED_PHOTOS_DEST'] = 'upload_images/'
+configure_uploads(app, photos)
 
 # ensure responses aren't cached
 if app.config["DEBUG"]:
@@ -20,16 +25,11 @@ if app.config["DEBUG"]:
         response.headers["Pragma"] = "no-cache"
         return response
 
-UPLOAD_FOLDER = '/webik01website/upload-images'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
-
 # configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_FILE_DIR"] = mkdtemp()
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 # configure CS50 Library to use SQLite database
@@ -59,32 +59,16 @@ def profile():
 
     return render_template("profile.html", username=username, page=page)
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
 
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('post', filename=filename)
+    if request.method == 'POST' and 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        return filename
+    return render_template('post.html')
 
-@app.route('/webik01website/upload-images')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
