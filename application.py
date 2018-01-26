@@ -66,7 +66,17 @@ def post():
 
     if request.method == 'POST' and 'photo' in request.files:
         filename = photos.save(request.files['photo'])
-        return filename
+
+
+        new_post = db.execute("INSERT INTO photos (photo_location, photo_id, user_id) VALUES (:photo_location, :photo_id, :user_id)", photo_location=filename, photo_id=session["photo_id"], user_id=session["user_id"])
+        if not new_post:
+            return render_template("apology.html")
+
+        rows = db.execute("SELECT * FROM photos WHERE photo_location = :photo_location", photo_location=filename)
+        session["photo_id"] = rows[0]["photo_id"]
+
+        return redirect(url_for("profile"))
+
     return render_template('post.html')
 
 
