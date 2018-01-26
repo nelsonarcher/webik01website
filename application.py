@@ -52,7 +52,7 @@ def explore():
 def profile():
 
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
-    photo = db.execute("SELECT photo_id FROM photos WHERE id=:id", id=session["user_id"])
+    photo = db.execute("SELECT photo_id FROM photos WHERE user_id=:id", id=session["user_id"])
     page = []
     for x in range(len(photo)):
         page.append(photo)
@@ -68,7 +68,7 @@ def post():
         filename = photos.save(request.files['photo'])
 
 
-        new_post = db.execute("INSERT INTO photos (photo_location, photo_id, user_id) VALUES (:photo_location, :photo_id, :user_id)", photo_location=filename, photo_id=session["photo_id"], user_id=session["user_id"])
+        new_post = db.execute("INSERT INTO photos (photo_location, user_id) VALUES (:photo_location, :user_id)", photo_location=filename, user_id=session["user_id"])
         if not new_post:
             return render_template("apology.html")
 
