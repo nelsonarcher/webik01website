@@ -1,4 +1,4 @@
-# webik01website
+123# webik01website
 Git Repo for webik ik01 website!
 
 ## Technisch ontwerp – Matthijs, Nelson en Cilia Groep ik01
@@ -207,3 +207,21 @@ Controller:
 #### Flask frame:
 
     http://flask.pocoo.org/
+
+#### Overige bruikbare links:
+
+    Voorbeeld code social code: https://getstream.io/get_started
+
+                                https://getstream.io/docs/#example-apps
+
+                                https://github.com/GetStream/Stream-Example-Py
+
+                                https://github.com/GetStream/Stream-Example-Py/blob/master/templates/activity/aggregated/follow.html
+
+                                https://gist.github.com/tbarbugli/97bf26f400ecf1443ef6
+
+                                https://github.com/tumblr/pytumblr
+
+
+
+
