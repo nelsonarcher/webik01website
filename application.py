@@ -46,8 +46,8 @@ def profile():
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
     photo = db.execute("SELECT photo_id FROM photos WHERE id=:id", id=session["user_id"])
     page = []
-    for x in range(len(photos)):
-        page.append(photos)
+    for x in range(len(photo)):
+        page.append(photo)
 
     return render_template("profile.html", username=username, page=page)
 
@@ -60,13 +60,13 @@ def post():
         if not request.form.get("file"):
            return render_template("apology.html")
 
-        save_image = img.save(request.form.get("file"), "PATH", "JPEG")
+        save_image = img.save(request.form.get("file"), "/webik01website/upload-images", "JPEG")
 
-        new_post = db.execute("INSERT INTO photos (photo_location, photo_id, id) VALUES (:photo_location, :photo_id, id)", photo_location=LOCATIEDATABASE, photo_id=session["photo_id"], id=session["user_id"])
+        new_post = db.execute("INSERT INTO photos (photo_location, photo_id, id) VALUES (:photo_location, :photo_id, id)", photo_location=save_image, photo_id=session["photo_id"], id=session["user_id"])
         if not new_post:
             return render_template("apology.html")
 
-        rows = db.execute("SELECT * FROM photos WHERE photo_location = :photo_location", photo_location=location)
+        rows = db.execute("SELECT * FROM photos WHERE photo_location = :photo_location", photo_location=save_image)
         session["photo_id"] = rows[0]["photo_id"]
 
         return redirect(url_for("index"))
