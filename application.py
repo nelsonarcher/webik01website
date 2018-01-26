@@ -5,7 +5,7 @@ from passlib.apps import custom_app_context as pwd_context
 from tempfile import mkdtemp
 
 from helpers import *
-
+from PIL import Image
 # configure application
 app = Flask(__name__)
 
@@ -44,7 +44,7 @@ def explore():
 def profile():
 
     username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
-    photos = db.execute("SELECT photo_id FROM location WHERE id=:id", id=session["user_id"])
+    photo = db.execute("SELECT photo_id FROM photos WHERE id=:id", id=session["user_id"])
     page = []
     for x in range(len(photos)):
         page.append(photos)
@@ -60,10 +60,14 @@ def post():
         if not request.form.get("file"):
            return render_template("apology.html")
 
-        new_post = db.execute("INSERT INTO location (photo_location, photo_id, id) VALUES (:photo_location, :photo_id, id)", photo_location=LOCATIEDATABASE, photo_id=session["photo_id"], id=session["user_id"])
+        save_image = img.save(request.form.get("file"), "PATH", "JPEG")
+
+        new_post = db.execute("INSERT INTO photos (photo_location, photo_id, id) VALUES (:photo_location, :photo_id, id)", photo_location=LOCATIEDATABASE, photo_id=session["photo_id"], id=session["user_id"])
         if not new_post:
             return render_template("apology.html")
 
+        rows = db.execute("SELECT * FROM photos WHERE photo_location = :photo_location", photo_location=location)
+        session["photo_id"] = rows[0]["photo_id"]
 
         return redirect(url_for("index"))
 
