@@ -35,21 +35,11 @@ Session(app)
 # configure CS50 Library to use SQLite database
 db = SQL("sqlite:///database.db")
 
-@app.route("/index")
+@app.route("/")
 @login_required
 def index():
 
-    photo_locations = db.execute("SELECT * FROM photos WHERE photo_id IN (SELECT photo_id FROM photo ORDER BY RANDOM() LIMIT x);")
-    locations = []
-    for photo_location in photo_locations:
-        locations.append(photo_location["photo_location"])
-
-    captions = db.execute("SELECT caption FROM photos WHERE user_id=:user_id", user_id=session["user_id"])
-    photo_captions = []
-    for caption in captions:
-        photo_captions.append(caption["caption"])
-
-    return render_template("index.html", photo_locations=locations, caption=photo_captions)
+    return render_template("apology.html")
 
 @app.route("/explore")
 @login_required
@@ -60,7 +50,8 @@ def explore():
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
-    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:photo_id", photo_id=session["user_id"])
+    #photo_id = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location)
+    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=session["user_id"])
     photo_captions = []
     for caption in captions:
         photo_captions.append(caption["caption"])
@@ -82,7 +73,9 @@ def profile():
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
-    captions = db.execute("SELECT caption FROM photos WHERE user_id=:user_id", user_id=session["user_id"])
+    #photo_id = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location)
+
+    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=session["user_id"])
     photo_captions = []
     for caption in captions:
         photo_captions.append(caption["caption"])
