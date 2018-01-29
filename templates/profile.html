@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block main %}
+    {% for username in usernames %}
     <p>@ {{ username }}</p>
+    {% endfor %}
     {% for location in photo_locations %}
     <div>
         <img alt="photo" src="{{ url_for('static', filename='upload_images/' + location) }}", style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;" />

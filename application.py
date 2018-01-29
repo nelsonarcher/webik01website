@@ -53,18 +53,17 @@ def profile():
 
 
     user_names = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
-    username = []
+    usernames = []
     for user_name in user_names:
-        username.append(user_name["user_name"])
+        usernames.append(user_name["username"])
 
     photo_locations = db.execute("SELECT photo_location FROM photos WHERE user_id=:id", id=session["user_id"])
     locations = []
-
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
 
-    return render_template("profile.html", username=username, photo_locations=locations)
+    return render_template("profile.html", usernames=usernames, photo_locations=locations)
 
 
 @app.route('/post', methods=['GET', 'POST'])
