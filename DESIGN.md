@@ -11,7 +11,6 @@ Model:
 
 View:
   * Een template: templates/register.html
-  * Evt. een stylesheet: register.css
 
 Controller:
   * Een bestand application.py
@@ -19,7 +18,7 @@ Controller:
   * GET:
     * Laat register.html zien
   * POST:
-    * Roep models.register() aan met de ingevulde naam / wachtwoord
+    * Roep register() aan met de ingevulde naam / wachtwoord
     * Sla user_id in database en session op als registreren is gelukt
     * Sla wachtwoord (store_password) op in database als hash
     * Redirect naar /index.html als registreren is gelukt, anders /register.html

@@ -45,7 +45,17 @@ def index():
 @login_required
 def explore():
 
-    return render_template("explore.html")
+    photo_locations = db.execute("SELECT photo_location FROM photos")
+    locations = []
+    for photo_location in photo_locations:
+        locations.append(photo_location["photo_location"])
+
+    captions = db.execute("SELECT caption FROM photos WHERE user_id=:user_id", user_id=session["user_id"])
+    photo_captions = []
+    for caption in captions:
+        photo_captions.append(caption["caption"])
+
+    return render_template("explore.html", photo_locations=locations, caption=photo_captions)
 
 @app.route("/profile")
 @login_required
@@ -62,12 +72,12 @@ def profile():
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
-    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:photo_id", photo_id="photo_id")
-    caption_s = []
+    captions = db.execute("SELECT caption FROM photos WHERE user_id=:user_id", user_id=session["user_id"])
+    photo_captions = []
     for caption in captions:
-        caption_s.append(caption["caption"])
+        photo_captions.append(caption["caption"])
 
-    return render_template("profile.html", usernames=usernames, photo_locations=locations, caption=caption_s)
+    return render_template("profile.html", usernames=usernames, photo_locations=locations, caption=photo_captions)
 
 
 @app.route('/post', methods=['GET', 'POST'])
