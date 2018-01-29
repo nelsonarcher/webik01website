@@ -62,8 +62,12 @@ def profile():
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
+    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:photo_id", photo_id="photo_id")
+    caption_s = []
+    for caption in captions:
+        caption_s.append(caption["caption"])
 
-    return render_template("profile.html", usernames=usernames, photo_locations=locations)
+    return render_template("profile.html", usernames=usernames, photo_locations=locations, caption=caption_s)
 
 
 @app.route('/post', methods=['GET', 'POST'])
@@ -73,14 +77,12 @@ def post():
     if request.method == 'POST' and 'photo' in request.files:
         filename = photos.save(request.files['photo'])
 
-        new_post = db.execute("INSERT INTO photos (photo_location, user_id) VALUES (:photo_location, :user_id)", photo_location=filename, user_id=session["user_id"])
+        new_post = db.execute("INSERT INTO photos (photo_location, user_id, caption) VALUES (:photo_location, :user_id, :caption)", photo_location=filename, user_id=session["user_id"], caption=request.form.get("caption"))
         if not new_post:
             return render_template("apology.html")
 
         if not request.form.get("caption"):
             return render_template("apology.html")
-
-        new_caption = db.execute("INSERT INTO photos (photo_location, user_id, caption) VALUES (:photo_location, :user_id, :caption)", photo_location=filename, user_id=session["user_id"], caption=request.form.get("caption"))
 
         rows = db.execute("SELECT * FROM photos WHERE photo_location = :photo_location", photo_location=filename)
         session["photo_id"] = rows[0]["photo_id"]
