@@ -51,16 +51,24 @@ def explore():
 @login_required
 def profile():
 
-    username = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
+
+    user_names = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
+    username = []
+    for user_name in user_names:
+        username.append(user_name["user_name"])
+
+    photo_locations = db.execute("SELECT photo_location FROM photos WHERE user_id=:id", id=session["user_id"])
+    locations = []
+
+    for photo_location in photo_locations:
+        locations.append(photo_location["photo_location"])
 
 
-    page = db.execute("SELECT photo_location FROM photos WHERE user_id=:id", id=session["user_id"])
-
-
-    return render_template("profile.html", username=username, page=page)
+    return render_template("profile.html", username=username, photo_locations=locations)
 
 
 @app.route('/post', methods=['GET', 'POST'])
+@login_required
 def post():
 
     if request.method == 'POST' and 'photo' in request.files:
@@ -76,6 +84,11 @@ def post():
         return redirect(url_for("profile"))
 
     return render_template('post.html')
+
+#@app.route("/follow")
+#@login_required
+#def follow():
+
 
 
 @app.route("/login", methods=["GET", "POST"])

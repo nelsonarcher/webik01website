@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block main %}
-    <p>"@ {{ username }}"</p>
-    {% for photo in photos %}
+    <p>@ {{ username }}</p>
+    {% for location in photo_locations %}
     <div>
-        <img alt="photo" src="{{ page }}", style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;" />
+        <img alt="photo" src="{{ url_for('static', filename='upload_images/' + location) }}", style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;" />
     </div>
     {% endfor %}
 {% endblock %}
