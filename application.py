@@ -104,10 +104,11 @@ def post():
 
     return render_template('post.html')
 
-#@app.route("/follow")
-#@login_required
-#def follow():
-
+@app.route("/follow", methods=["GET", "POST"])
+@login_required
+def follow():
+    if clickbutton???:
+        get_follow = db.execute("INSERT INTO followers
 
 
 @app.route("/login", methods=["GET", "POST"])
