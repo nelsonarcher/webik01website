@@ -50,7 +50,7 @@ def explore():
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
-    captions = db.execute("SELECT caption FROM photos WHERE user_id=:user_id", user_id=session["user_id"])
+    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:photo_id", photo_id=session["user_id"])
     photo_captions = []
     for caption in captions:
         photo_captions.append(caption["caption"])

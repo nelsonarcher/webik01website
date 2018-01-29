@@ -9,13 +9,11 @@
     {% for username in usernames %}
     <p>@{{ username }}</p>
     {% endfor %}
-    <div>
+    <div class="iconbox">
     {% for location in photo_locations %}
-        <img alt="photo" src="{{ url_for('static', filename='upload_images/' + location) }}", style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em; width:355px; height:355px;" />
+        <img alt="photo" src="{{ url_for('static', filename='upload_images/' + location) }}", style="float: left; width: 30%; margin-right: 1%; margin-bottom: 1em; width:355px; height:355px;" />
+         <figcaption class="caption", style="float: left; margin-right: 0%; margin-bottom: 0em;"> {{ caption }} </figcaption>
     {% endfor %}
-    {% for photo_caption in captions %}
-        <
-        p {{ caption }} />
-    {% endfor %}
+
     </div>
 {% endblock %}
