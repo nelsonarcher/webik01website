@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block main %}
-<<<<<<< HEAD
-    <h4>Explore page</h4>
+
+    <h4>Explore pictures on Travel Tales here!</h4>
     <div>
     {% for location in photo_locations %}
         <img alt="photo" src="{{ url_for('static', filename='upload_images/' + location) }}", style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em;" />
@@ -15,8 +15,6 @@
         <p {{ caption }} />
     {% endfor %}
     </div>
-=======
-    <h4>Explore pictures on Travel Tales here!</h4>
-    <img alt="TEST"/>
->>>>>>> f7e6c67b75d201a19d7880991ac8476578fa1447
+
+
 {% endblock %}
