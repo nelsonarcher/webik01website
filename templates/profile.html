@@ -7,7 +7,9 @@
 
 {% block main %}
     <h4>Profile page</h4>
-
+    {% for username in usernames %}
+        <h3><p>@{{ username }}</p></h3>
+    {% endfor %}
 <div class="well">
     <div class="row">
         {% for photo in photos %}

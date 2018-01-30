@@ -15,9 +15,7 @@
             <div class="thumbnail">
                     <img alt="100%x200" src="{{ url_for('static', filename='upload_images/' + photo.photo_location) }}"  data-holder-rendered="true" style="height: 300px; width: 300px; display: block;">
                     <div class="caption">
-                        {% for username in usernames %}
-                            <h4><p>@{{ username }}</p></h4>
-                        {% endfor %}
+                            <h4><p>@{{ userdict[photo.user_id] }}</p></h4>
                         <figcaption class="caption", style="float: left; margin-right: 0%; margin-bottom: 0em;"> {{ photo.caption }} </figcaption>
                         <p>
                              <form action="{{ url_for('explore') }}" method="post">
