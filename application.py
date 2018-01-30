@@ -50,8 +50,12 @@ def explore():
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
-    #photo_id = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location)
-    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=session["user_id"])
+    photos_select = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location["photo_location"])
+    photo_id = []
+    for photo_select in photos_select:
+        photo_id.append(photo_select["photo_id"])
+
+    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=photo_id)
     photo_captions = []
     for caption in captions:
         photo_captions.append(caption["caption"])
@@ -80,7 +84,7 @@ def profile():
     photos_select = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location)
     photo_id = []
     for photo_select in photos_select:
-        photo_id.append(photo_select["photo_select"])
+        photo_id.append(photo_select["photo_id"])
 
     captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=photo_id)
     photo_captions = []
@@ -111,13 +115,8 @@ def post():
 
     return render_template('post.html')
 
-#@app.route("/follow", methods=["GET", "POST"])
-#@login_required
-#def follow():
-    #if request.form.get("follow"):
-        #get_follow = db.execute("INSERT INTO followers (user_followed, user_following) VALUES (:user_followed, :user_following)", user_followed=session["user_id"], user_following=session["user_id"])
 
-    #return render_template("index.html")
+
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
