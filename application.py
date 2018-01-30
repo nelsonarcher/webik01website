@@ -45,27 +45,15 @@ def index():
 @login_required
 def explore():
 
-    photo_locations = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
-    locations = []
-    for photo_location in photo_locations:
-        locations.append(photo_location["photo_location"])
-
-    photos_select = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location["photo_location"])
-    photo_id = []
-    for photo_select in photos_select:
-        photo_id.append(photo_select["photo_id"])
-
-    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=photo_id)
-    photo_captions = []
-    for caption in captions:
-        photo_captions.append(caption["caption"])
+    photos = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
 
     user_names = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
     usernames = []
     for user_name in user_names:
         usernames.append(user_name["username"])
 
-    return render_template("explore.html", photo_locations=locations, caption=photo_captions)
+    return render_template("explore.html", photos=photos, usernames=usernames)
+
 
 @app.route("/profile")
 @login_required
@@ -76,22 +64,9 @@ def profile():
     for user_name in user_names:
         usernames.append(user_name["username"])
 
-    photo_locations = db.execute("SELECT photo_location FROM photos WHERE user_id=:id", id=session["user_id"])
-    locations = []
-    for photo_location in photo_locations:
-        locations.append(photo_location["photo_location"])
+    photos = db.execute("SELECT photo_location FROM photos WHERE user_id=:id", id=session["user_id"])
 
-    photos_select = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location)
-    photo_id = []
-    for photo_select in photos_select:
-        photo_id.append(photo_select["photo_id"])
-
-    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=photo_id)
-    photo_captions = []
-    for caption in captions:
-        photo_captions.append(caption["caption"])
-
-    return render_template("profile.html", usernames=usernames, photo_locations=locations, caption=photo_captions)
+    return render_template("profile.html", usernames=usernames, photos=photos)
 
 
 @app.route('/post', methods=['GET', 'POST'])
@@ -114,8 +89,6 @@ def post():
         return redirect(url_for("profile"))
 
     return render_template('post.html')
-
-
 
 
 @app.route("/login", methods=["GET", "POST"])
