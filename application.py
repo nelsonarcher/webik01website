@@ -41,9 +41,13 @@ def index():
 
     return render_template("apology.html")
 
-@app.route("/explore")
+@app.route("/explore", methods=["GET", "POST"])
 @login_required
 def explore():
+
+    if request.method == "POST":
+        photo_id = request.form.get("likeknop")
+        db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
 
     photos = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
 
@@ -89,7 +93,6 @@ def post():
         return redirect(url_for("profile"))
 
     return render_template('post.html')
-
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
