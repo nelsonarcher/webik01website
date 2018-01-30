@@ -45,7 +45,7 @@ def index():
 @login_required
 def explore():
 
-    photo_locations = db.execute("SELECT photo_location FROM photos")
+    photo_locations = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
     locations = []
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
@@ -103,11 +103,6 @@ def post():
         return redirect(url_for("profile"))
 
     return render_template('post.html')
-
-#@app.route("/follow")
-#@login_required
-#def follow():
-
 
 
 @app.route("/login", methods=["GET", "POST"])
