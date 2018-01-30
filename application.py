@@ -47,12 +47,11 @@ def explore():
 
     photos = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
 
-    user_names = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
-    usernames = []
-    for user_name in user_names:
-        usernames.append(user_name["username"])
+    user_names = db.execute("SELECT id, username FROM users")
 
-    return render_template("explore.html", photos=photos, usernames=usernames)
+    userdict = {user["id"] : user["username"] for user in user_names}
+
+    return render_template("explore.html", photos=photos, userdict=userdict)
 
 
 @app.route("/profile")
@@ -64,7 +63,7 @@ def profile():
     for user_name in user_names:
         usernames.append(user_name["username"])
 
-    photos = db.execute("SELECT photo_location FROM photos WHERE user_id=:id", id=session["user_id"])
+    photos = db.execute("SELECT photo_location, caption FROM photos WHERE user_id=:id", id=session["user_id"])
 
     return render_template("profile.html", usernames=usernames, photos=photos)
 
