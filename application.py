@@ -108,8 +108,6 @@ def post():
 
     return render_template('post.html')
 
-<<<<<<< HEAD
-=======
 #@app.route("/follow", methods=["GET", "POST"])
 #@login_required
 #def follow():
@@ -117,7 +115,6 @@ def post():
         #get_follow = db.execute("INSERT INTO followers (user_followed, user_following) VALUES (:user_followed, :user_following)", user_followed=session["user_id"], user_following=session["user_id"])
 
     #return render_template("index.html")
->>>>>>> d74750bfa6b7e0ed1da1de2950b69dcf3f82cf23
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -148,7 +145,7 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
-        return redirect(url_for("index"))
+        return redirect(url_for("explore"))
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -198,7 +195,7 @@ def register():
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
         session["user_id"] = rows[0]["id"]
 
-        return redirect(url_for("index"))
+        return redirect(url_for("explore"))
 
     else:
         return render_template("register.html")
