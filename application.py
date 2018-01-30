@@ -52,15 +52,9 @@ def explore():
     photos = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
 
     user_names = db.execute("SELECT id, username FROM users")
-<<<<<<< HEAD
 
     userdict = {user["id"] : user["username"] for user in user_names}
 
-=======
-
-    userdict = {user["id"] : user["username"] for user in user_names}
-
->>>>>>> aa097365fd40e88569d8ade2bcad63f00477a5f4
     return render_template("explore.html", photos=photos, userdict=userdict)
 
 
