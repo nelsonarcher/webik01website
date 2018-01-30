@@ -108,7 +108,7 @@ def post():
 @login_required
 def follow():
     if clickbutton???:
-        get_follow = db.execute("INSERT INTO followers
+        get_follow = db.execute("INSERT INTO followers (user_followed, user_following) VALUES (:user_followed, :user_following)", user_followed=???, user_following=session["user_id"])
 
 
 @app.route("/login", methods=["GET", "POST"])
