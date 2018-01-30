@@ -77,9 +77,12 @@ def profile():
     for photo_location in photo_locations:
         locations.append(photo_location["photo_location"])
 
-    #photo_id = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location)
+    photos_select = db.execute("SELECT photo_id FROM photos WHERE photo_location=:photo_location", photo_location=photo_location)
+    photo_id = []
+    for photo_select in photos_select:
+        photo_id.append(photo_select["photo_select"])
 
-    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=session["user_id"])
+    captions = db.execute("SELECT caption FROM photos WHERE photo_id=:id", id=photo_id)
     photo_captions = []
     for caption in captions:
         photo_captions.append(caption["caption"])
@@ -108,8 +111,6 @@ def post():
 
     return render_template('post.html')
 
-<<<<<<< HEAD
-=======
 #@app.route("/follow", methods=["GET", "POST"])
 #@login_required
 #def follow():
@@ -117,7 +118,6 @@ def post():
         #get_follow = db.execute("INSERT INTO followers (user_followed, user_following) VALUES (:user_followed, :user_following)", user_followed=session["user_id"], user_following=session["user_id"])
 
     #return render_template("index.html")
->>>>>>> d74750bfa6b7e0ed1da1de2950b69dcf3f82cf23
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
