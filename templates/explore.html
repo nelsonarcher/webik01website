@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 
+
 {% block title %}
     Explore
 {% endblock %}
@@ -7,14 +8,21 @@
 {% block main %}
 
     <h4>Explore pictures on Travel Tales here!</h4>
+
     <div class="image">
     {% for location in photo_locations %}
         <img alt="photo" src="{{ url_for('static', filename='upload_images/' + location) }}", style="float: left; width: 30%; margin-right: 1%; margin-bottom: 0.5em; margin-top: 1em; width:355px; height:355px;" />
         <figcaption class="caption", style="float: left; margin-right: 0%; margin-bottom: 0em;"> {{ caption }} </figcaption>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> ac68d31d104b5c7d8f92f09bab16ac0ba764eb30
+=======
+        {% for username in usernames %}
+            <p>@{{ username }}</p>
+        {% endfor %}
+>>>>>>> d74750bfa6b7e0ed1da1de2950b69dcf3f82cf23
     {% endfor %}
 
     </div>

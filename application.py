@@ -56,12 +56,16 @@ def explore():
     for caption in captions:
         photo_captions.append(caption["caption"])
 
+    user_names = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
+    usernames = []
+    for user_name in user_names:
+        usernames.append(user_name["username"])
+
     return render_template("explore.html", photo_locations=locations, caption=photo_captions)
 
 @app.route("/profile")
 @login_required
 def profile():
-
 
     user_names = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
     usernames = []
@@ -104,6 +108,16 @@ def post():
 
     return render_template('post.html')
 
+<<<<<<< HEAD
+=======
+#@app.route("/follow", methods=["GET", "POST"])
+#@login_required
+#def follow():
+    #if request.form.get("follow"):
+        #get_follow = db.execute("INSERT INTO followers (user_followed, user_following) VALUES (:user_followed, :user_following)", user_followed=session["user_id"], user_following=session["user_id"])
+
+    #return render_template("index.html")
+>>>>>>> d74750bfa6b7e0ed1da1de2950b69dcf3f82cf23
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

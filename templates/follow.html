@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Follow
+{% endblock %}
+
+{% block main %}
+    <form action="{{ url_for('follow') }}" method="post">
+        <fieldset>
+            {% for username in usernames %}
+                <p>@{{ username }}</p>
+            {% endfor %}
+            <div class="form-group">
+                <button type="button" class="btn btn-default" name="follow" type="submit">Follow</button>
+            </div>
+    </form>
+{% endblock %}

@@ -13,3 +13,5 @@ def index():
         photo_captions.append(caption["caption"])
 
     return render_template("index.html", photo_locations=locations, caption=photo_captions)
+
+SELECT * FROM table ORDER BY RANDOM() LIMIT 1;
