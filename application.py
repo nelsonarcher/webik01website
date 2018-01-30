@@ -148,7 +148,7 @@ def login():
         session["user_id"] = rows[0]["id"]
 
         # redirect user to home page
-        return redirect(url_for("index"))
+        return redirect(url_for("explore"))
 
     # else if user reached route via GET (as by clicking a link or via redirect)
     else:
@@ -198,7 +198,7 @@ def register():
         rows = db.execute("SELECT * FROM users WHERE username = :username", username=request.form.get("username"))
         session["user_id"] = rows[0]["id"]
 
-        return redirect(url_for("index"))
+        return redirect(url_for("explore"))
 
     else:
         return render_template("register.html")
