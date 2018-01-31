@@ -16,43 +16,42 @@
             {% for photo in photos %}
             <div class="col-sm-4 col-md-4">
                 <div class="thumbnail">
-                        <img alt="100%x200" src="{{ url_for('static', filename='upload_images/' + photo.photo_location) }}"  data-holder-rendered="true" style="height: 300px; width: 300px; display: block;">
-                        <div class="caption">
-                            {% for username in usernames %}
-                                <h4><p>@{{ username }}</p></h4>
-                            {% endfor %}
-                            <figcaption class="caption", style="float: left; margin-right: 0%; margin-bottom: 0em;"> {{ photo.caption }} </figcaption>
-                            <p>
-                            {% if photo.photo_id in photo_likes %}
-                                <button class="btn btn-danger btn-sm" name="likecount" type="submit">{{ like_count[photo.photo_id] }} Likes</button>
-                            {% endif %}
-                            </p>
-                            <p>
-                            <fieldset>
-                                <form action="{{ url_for('explore') }}" method="post">
-                                    <div class="form-group">
-                                        <input type="textarea" rows="20" cols="30" name="comment" placeholder="Write a comment about this photo"/>
-                                    </div>
-                                    <p>
-                                        <button class="btn btn-default" name="commentknop" value={{ photo.photo_id }} type="submit">Comments</button>
-                                    </p>
-                                </form>
-                            </fieldset>
-                            </p>
-                            <p>
-                            {% if photo.photo_id in commentbox %}
-                                <h7><strong>Comments:</strong></h7>
+                    <img alt="100%x200" src="{{ url_for('static', filename='upload_images/' + photo.photo_location) }}"  data-holder-rendered="true" style="height: 300px; width: 300px; display: block;">
+                    <div class="caption">
+                        {% for username in usernames %}
+                            <h4><p>@{{ username }}</p></h4>
+                        {% endfor %}
+                        <figcaption class="caption", style="float: left; margin-right: 0%; margin-bottom: 0em;"> {{ photo.caption }} </figcaption>
+                        <p>
+                        {% if photo.photo_id in photo_likes %}
+                            <button class="btn btn-danger btn-sm" name="likecount" type="submit">{{ like_count[photo.photo_id] }} Likes</button>
+                        {% endif %}
+                        </p>
+                        <p>
+                        <fieldset>
+                            <form action="{{ url_for('explore') }}" method="post">
+                                <div class="form-group">
+                                    <input type="textarea" rows="20" cols="30" name="comment" placeholder="Write a comment about this photo"/>
+                                </div>
                                 <p>
-                                {% for comment in commentbox[photo.photo_id] %}
-                                {% for username in usernames %}
-                                <h7><p>@{{ username }}: {{ comment }}</p></h&>
-                                {% endfor %}
-
-                                {% endfor %}
+                                    <button class="btn btn-default" name="commentknop" value={{ photo.photo_id }} type="submit">Comments</button>
                                 </p>
-                            {% endif %}
+                            </form>
+                        </fieldset>
+                        </p>
+                        <p>
+                        {% if photo.photo_id in commentbox %}
+                            <h7><strong>Comments:</strong></h7>
+                            <p>
+                            {% for comment in commentbox[photo.photo_id] %}
+                            {% for username in usernames %}
+                            <h7><p>@{{ username }}: {{ comment }}</p></h&>
+                            {% endfor %}
+                            {% endfor %}
                             </p>
-                        </div>
+                        {% endif %}
+                        </p>
+                    </div>
                 </div>
             </div>
             {% endfor %}

@@ -8,11 +8,11 @@
 
     <h4>Explore pictures on Travel Tales here!</h4>
 
-<div class="well">
-    <div class="row">
-        {% for photo in photos %}
-        <div class="col-sm-4 col-md-4">
-            <div class="thumbnail">
+    <div class="well">
+        <div class="row">
+            {% for photo in photos %}
+            <div class="col-sm-4 col-md-4">
+                <div class="thumbnail">
                     <img alt="100%x200" src="{{ url_for('static', filename='upload_images/' + photo.photo_location) }}"  data-holder-rendered="true" style="height: 300px; width: 300px; display: block;">
                     <div class="caption">
                             <h4><p>@{{ userdict[photo.user_id] }}</p></h4>
@@ -51,10 +51,10 @@
                         {% endif %}
                         </p>
                     </div>
+                </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 
 {% endblock %}

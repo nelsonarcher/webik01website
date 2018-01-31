@@ -11,6 +11,7 @@ from flask.ext.uploads import UploadSet, configure_uploads, IMAGES
 # configure application
 app = Flask(__name__)
 
+# for uploading photos
 photos = UploadSet('photos', IMAGES)
 
 app.config['UPLOADED_PHOTOS_DEST'] = 'static/upload_images/'
@@ -45,39 +46,41 @@ def index():
 @login_required
 def explore():
 
+    """ A page with every uploaded photo on the site that the user can scroll through """
+
+    # select everything from table photos and get them in random order
     photos = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
 
+    # get the usernames and user ids
     user_names = db.execute("SELECT id, username FROM users")
-
     userdict = {user["id"] : user["username"] for user in user_names}
 
     if request.method == "POST":
+        # if likebutton is clicked, save the like
         if request.form.get("likeknop"):
             photo_id = request.form.get("likeknop")
             db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
-
+        # if comment is inserted, save comment
         elif request.form.get("commentknop"):
             photo_id = request.form.get("commentknop")
             comment = request.form.get("comment")
             db.execute("INSERT INTO comments (photo_id, user_id, comment_text) VALUES (:photo_id, :user_id, :comment)", photo_id=int(photo_id), user_id=session["user_id"], comment=str(comment))
 
-
+    # get the photoids of the photos the user has liked
     liked_photos = db.execute("SELECT photo_id FROM likes WHERE user_id=:user_id", user_id=session["user_id"])
     photo_likes = []
     for liked_photo in liked_photos:
         photo_likes.append(liked_photo["photo_id"])
 
+    # get the photoids of the photos that have been liked and count up the amount of times they are in the table
     likes_count = db.execute("SELECT photo_id FROM likes")
-
     like_count = {photo_id["photo_id"] : 0 for photo_id in likes_count}
-
     for like in likes_count:
         like_count[like["photo_id"]] += 1
 
+    # get the photoids and corresponding comments
     comments = db.execute("SELECT photo_id, comment_text FROM comments;")
-
     commentbox = {element["photo_id"] : [] for element in comments}
-
     for comment in comments:
         commentbox[comment["photo_id"]].append(comment["comment_text"])
 
@@ -87,43 +90,47 @@ def explore():
 @login_required
 def profile():
 
+    """ A page where the posted photos of the user are displayed """
+
+    # get the userid and username of the current user
     user_names = db.execute("SELECT username FROM users WHERE id = :id", id=session["user_id"])
     usernames = []
     for user_name in user_names:
         usernames.append(user_name["username"])
 
+    # get the userid and username of the current user
     user_names = db.execute("SELECT id, username FROM users")
-
     userdict = {user["id"] : user["username"] for user in user_names}
 
+    # select the posting information of the current user
     photos = db.execute("SELECT photo_location, caption, photo_id FROM photos WHERE user_id=:id", id=session["user_id"])
 
     if request.method == "POST":
+        # if likebutton is clicked, save the like
         if request.form.get("likeknop"):
             photo_id = request.form.get("likeknop")
             db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
-
+        # if comment is inserted, save comment
         elif request.form.get("commentknop"):
             photo_id = request.form.get("commentknop")
             comment = request.form.get("comment")
             db.execute("INSERT INTO comments (photo_id, user_id, comment_text) VALUES (:photo_id, :user_id, :comment)", photo_id=int(photo_id), user_id=session["user_id"], comment=str(comment))
 
+    # get the photoids of the photos the user has liked
     liked_photos = db.execute("SELECT photo_id FROM likes WHERE user_id=:user_id", user_id=session["user_id"])
     photo_likes = []
     for liked_photo in liked_photos:
         photo_likes.append(liked_photo["photo_id"])
 
+    # get the photoids of the photos that have been liked and count up the amount of times they are in the table
     likes_count = db.execute("SELECT photo_id FROM likes")
-
     like_count = {photo_id["photo_id"] : 0 for photo_id in likes_count}
-
     for like in likes_count:
         like_count[like["photo_id"]] += 1
 
+    # get the photoids and corresponding comments
     comments = db.execute("SELECT photo_id, comment_text FROM comments;")
-
     commentbox = {element["photo_id"] : [] for element in comments}
-
     for comment in comments:
         commentbox[comment["photo_id"]].append(comment["comment_text"])
 
@@ -133,16 +140,20 @@ def profile():
 @login_required
 def post():
 
+    """ Post a photo """
+
     if request.method == 'POST' and 'photo' in request.files:
+        # save photo to local folder
         filename = photos.save(request.files['photo'])
 
+        # save photo location and optional caption to database
         new_post = db.execute("INSERT INTO photos (photo_location, user_id, caption) VALUES (:photo_location, :user_id, :caption)", photo_location=filename, user_id=session["user_id"], caption=request.form.get("caption"))
         if not new_post:
             return render_template("apology.html")
-
         if not request.form.get("caption"):
             return render_template("apology.html")
 
+        # store photo id
         rows = db.execute("SELECT * FROM photos WHERE photo_location = :photo_location", photo_location=filename)
         session["photo_id"] = rows[0]["photo_id"]
 
