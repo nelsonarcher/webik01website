@@ -45,17 +45,29 @@ def index():
 @login_required
 def explore():
 
-    if request.method == "POST":
-        photo_id = request.form.get("likeknop")
-        db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
-
     photos = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
 
     user_names = db.execute("SELECT id, username FROM users")
 
     userdict = {user["id"] : user["username"] for user in user_names}
 
-    return render_template("explore.html", photos=photos, userdict=userdict)
+    if request.method == "POST":
+        photo_id = request.form.get("likeknop")
+        db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
+
+    liked_photos = db.execute("SELECT photo_id FROM likes WHERE user_id=:user_id", user_id=session["user_id"])
+    photo_likes = []
+    for liked_photo in liked_photos:
+        photo_likes.append(liked_photo["photo_id"])
+
+    likes_count = db.execute("SELECT photo_id FROM likes")
+
+    like_count = {photo_id["photo_id"] : 0 for photo_id in likes_count}
+
+    for like in likes_count:
+        like_count[like["photo_id"]] += 1
+
+    return render_template("explore.html", photos=photos, userdict=userdict, photo_likes=photo_likes, like_count=like_count)
 
 
 @app.route("/profile")
@@ -67,9 +79,25 @@ def profile():
     for user_name in user_names:
         usernames.append(user_name["username"])
 
-    photos = db.execute("SELECT photo_location, caption FROM photos WHERE user_id=:id", id=session["user_id"])
+    photos = db.execute("SELECT photo_location, caption, photo_id FROM photos WHERE user_id=:id", id=session["user_id"])
 
-    return render_template("profile.html", usernames=usernames, photos=photos)
+    if request.method == "POST":
+        photo_id = request.form.get("likeknop")
+        db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
+
+    liked_photos = db.execute("SELECT photo_id FROM likes WHERE user_id=:user_id", user_id=session["user_id"])
+    photo_likes = []
+    for liked_photo in liked_photos:
+        photo_likes.append(liked_photo["photo_id"])
+
+    likes_count = db.execute("SELECT photo_id FROM likes")
+
+    like_count = {photo_id["photo_id"] : 0 for photo_id in likes_count}
+
+    for like in likes_count:
+        like_count[like["photo_id"]] += 1
+
+    return render_template("profile.html", usernames=usernames, photos=photos, photo_likes=photo_likes, like_count=like_count)
 
 
 @app.route('/post', methods=['GET', 'POST'])

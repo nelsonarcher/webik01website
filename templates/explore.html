@@ -18,11 +18,15 @@
                             <h4><p>@{{ userdict[photo.user_id] }}</p></h4>
                         <figcaption class="caption", style="float: left; margin-right: 0%; margin-bottom: 0em;"> {{ photo.caption }} </figcaption>
                         <p>
+                            {% if photo.photo_id not in photo_likes %}
                             <form action="{{ url_for('explore') }}" method="post">
                                 <button class="btn btn-danger btn-sm" name="likeknop" value={{ photo.photo_id }} type="submit">
                                     <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
                                 </button>
                             </form>
+                            {% elif photo.photo_id in photo_likes %}
+                                <button class="btn btn-danger btn-sm" name="likecount" type="submit">{{ like_count[photo.photo_id] }} Likes</button>
+                            {% endif %}
                         </p>
                         <p>
                         <fieldset>
