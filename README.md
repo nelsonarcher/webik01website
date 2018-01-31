@@ -1,6 +1,6 @@
 # TravelTales
 
-## Projectvoorstel Cilia en Matthijs 		Groep IK01
+## Cilia Meinen en Matthijs Botter		Groep IK01
 
 ### Uitleg projectplan:
 
