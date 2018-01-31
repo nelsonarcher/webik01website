@@ -83,7 +83,7 @@ def explore():
 
     return render_template("explore.html", photos=photos, userdict=userdict, photo_likes=photo_likes, like_count=like_count, commentbox=commentbox)
 
-@app.route("/profile")
+@app.route("/profile", methods=["GET", "POST"])
 @login_required
 def profile():
 
@@ -92,11 +92,21 @@ def profile():
     for user_name in user_names:
         usernames.append(user_name["username"])
 
+    user_names = db.execute("SELECT id, username FROM users")
+
+    userdict = {user["id"] : user["username"] for user in user_names}
+
     photos = db.execute("SELECT photo_location, caption, photo_id FROM photos WHERE user_id=:id", id=session["user_id"])
 
     if request.method == "POST":
-        photo_id = request.form.get("likeknop")
-        db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
+        if request.form.get("likeknop"):
+            photo_id = request.form.get("likeknop")
+            db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
+
+        elif request.form.get("commentknop"):
+            photo_id = request.form.get("commentknop")
+            comment = request.form.get("comment")
+            db.execute("INSERT INTO comments (photo_id, user_id, comment_text) VALUES (:photo_id, :user_id, :comment)", photo_id=int(photo_id), user_id=session["user_id"], comment=str(comment))
 
     liked_photos = db.execute("SELECT photo_id FROM likes WHERE user_id=:user_id", user_id=session["user_id"])
     photo_likes = []
@@ -110,8 +120,14 @@ def profile():
     for like in likes_count:
         like_count[like["photo_id"]] += 1
 
-    return render_template("profile.html", usernames=usernames, photos=photos, photo_likes=photo_likes, like_count=like_count)
+    comments = db.execute("SELECT photo_id, comment_text FROM comments;")
 
+    commentbox = {element["photo_id"] : [] for element in comments}
+
+    for comment in comments:
+        commentbox[comment["photo_id"]].append(comment["comment_text"])
+
+    return render_template("profile.html", usernames=usernames, photos=photos, photo_likes=photo_likes, like_count=like_count, userdict=userdict, commentbox=commentbox)
 
 @app.route('/post', methods=['GET', 'POST'])
 @login_required
