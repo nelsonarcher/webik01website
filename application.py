@@ -55,13 +55,20 @@ def explore():
             comment = request.form.get("comment")
             db.execute("INSERT INTO comments (photo_id, user_id, comment_text) VALUES (:photo_id, :user_id, :comment)", photo_id=int(photo_id), user_id=session["user_id"], comment=str(comment))
 
+    comments = db.execute("SELECT photo_id, comment_text FROM comments;")
+
+    commentbox = {element["photo_id"] : [] for element in comments}
+
+    for comment in comments:
+        commentbox[comment["photo_id"]].append(comment["comment_text"])
+
     photos = db.execute("SELECT * FROM photos ORDER BY RANDOM () LIMIT 99;")
 
     user_names = db.execute("SELECT id, username FROM users")
 
     userdict = {user["id"] : user["username"] for user in user_names}
 
-    return render_template("explore.html", photos=photos, userdict=userdict)
+    return render_template("explore.html", photos=photos, userdict=userdict, commentbox=commentbox)
 
 
 @app.route("/profile")
