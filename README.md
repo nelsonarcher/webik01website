@@ -33,12 +33,18 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
  * Log in (rechtsboven)
  * Invulveld centraal op de pagina
 
+![Imgur](https://i.imgur.com/WAJb17D.png)
+
+![Imgur](https://i.imgur.com/WBp1cRC.png)
+
 #### 2.	Explore pagina (Explore)
 
  * Weergave geuploade foto's vanuit de database (weergave in random volgorde)
  * Like kunnen geven op een geplaatste foto
  * Comment plaatsen onder een geplaatste foto
  * Log out (rechtsboven)
+
+![Imgur](https://i.imgur.com/3Reyr2C.png)
 
 #### 3.	Profiel pagina (Profile)
 
@@ -47,6 +53,8 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
  * Mogelijkheid om comments te plaatsen onder de foto
  * Log out (rechtsboven)
 
+![Imgur](https://i.imgur.com/NbwmgiG.png)
+
 #### 4. Upload pagina (New Post)
 
  * Mogelijkheid om bestand te selecteren die locaal opgeslagen is op het device die gebruikt wordt
@@ -54,6 +62,28 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
  * Upload button om de upload in werking te brengen
  * Log out (rechtsboven)
 
+![Imgur](https://i.imgur.com/rGSMN2t.png)
+
+
+#### Website contributie teamleden
+
+ * Feature 1: registreren/account aanmaken (Cilia)
+
+ * Feature 2: inloggen (Cilia)
+
+ * Feature 3: uitloggen (Cilia)
+
+ * Feature 4: foto posten (Cilia, Matthijs)
+
+ * Feature 5: Explore pagina (Cilia, Matthijs)
+
+ * Feature 6: foto’s liken (Cilia, Matthijs)
+
+ * Feature 7: foto’s commenten (Cilia, Matthijs)
+
+ * Opmaak README.md (Matthijs)
+
+ * Opmaak DESIGN.md (Matthijs)
 
 #### Databronnen
 
