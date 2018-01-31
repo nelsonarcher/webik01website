@@ -44,7 +44,10 @@
                                 <h7><strong>Comments:</strong></h7>
                                 <p>
                                 {% for comment in commentbox[photo.photo_id] %}
-                                    <p>@{{ userdict[photo.user_id] }}: {{ comment }}</p>
+                                {% for username in usernames %}
+                                <h7><p>@{{ username }}: {{ comment }}</p></h&>
+                                {% endfor %}
+
                                 {% endfor %}
                                 </p>
                             {% endif %}
