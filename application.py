@@ -61,6 +61,7 @@ def explore():
             comment = request.form.get("comment")
             db.execute("INSERT INTO comments (photo_id, user_id, comment_text) VALUES (:photo_id, :user_id, :comment)", photo_id=int(photo_id), user_id=session["user_id"], comment=str(comment))
 
+
     liked_photos = db.execute("SELECT photo_id FROM likes WHERE user_id=:user_id", user_id=session["user_id"])
     photo_likes = []
     for liked_photo in liked_photos:
@@ -73,8 +74,14 @@ def explore():
     for like in likes_count:
         like_count[like["photo_id"]] += 1
 
-    return render_template("explore.html", photos=photos, userdict=userdict, photo_likes=photo_likes, like_count=like_count)
+    comments = db.execute("SELECT photo_id, comment_text FROM comments;")
 
+    commentbox = {element["photo_id"] : [] for element in comments}
+
+    for comment in comments:
+        commentbox[comment["photo_id"]].append(comment["comment_text"])
+
+    return render_template("explore.html", photos=photos, userdict=userdict, photo_likes=photo_likes, like_count=like_count, commentbox=commentbox)
 
 @app.route("/profile")
 @login_required

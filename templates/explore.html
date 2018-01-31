@@ -40,6 +40,16 @@
                             </form>
                         </fieldset>
                         </p>
+                        <p>
+                        {% if photo.photo_id in commentbox %}
+                            <h4>Comments</h4>
+                            <p>
+                            {% for comment in commentbox[photo.photo_id] %}
+                                <p> {{ comment }}</p>
+                            {% endfor %}
+                            </p>
+                        {% endif %}
+                        </p>
                     </div>
             </div>
         </div>
