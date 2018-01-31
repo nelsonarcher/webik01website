@@ -1,6 +1,6 @@
 # TravelTales
 
-## Cilia Meinen en Matthijs Botter // Groep IK01 // Webprogrammeren & Databases // 2018
+### Cilia Meinen en Matthijs Botter // Groep IK01 // Webprogrammeren & Databases // 2018
 
 ### Uitleg projectplan:
 
