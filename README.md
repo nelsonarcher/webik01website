@@ -9,6 +9,7 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
 
 ### Website features:
 
+
  * Feature 1: registreren/account aanmaken
 
  * Feature 2: inloggen
@@ -25,6 +26,7 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
 
 
 ### Opzet website:
+(Raadpleeg DESIGN.md voor technische ontwerp)
 
 #### 1.	Inlogscherm / registratie account
 
@@ -85,5 +87,3 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
  * Opmaak DESIGN.md (Matthijs)
 
 
-
-#### Raadpleeg DESIGN.md voor technische ontwerp
