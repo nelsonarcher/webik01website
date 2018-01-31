@@ -1,7 +1,32 @@
-123# webik01website
-Git Repo for webik ik01 website!
+# Technisch ontwerp – Matthijs en Cilia Groep ik01
 
-## Technisch ontwerp – Matthijs, Nelson en Cilia Groep ik01
+## Inrichting (mappen)
+
+webik01website (parentfolder)
+ * static/
+   * upload_images/
+   * style.css
+
+ * templates/
+   * apology.html
+   * explore.html
+   * layout.html
+   * login.html
+   * post.html
+   * profile.html
+   * register.html
+
+ * application.py
+
+ * helpers.py
+
+ * database.db
+
+ * DESIGN.md
+
+ * README.md
+
+## Website features:
 
 ### Feature 1: registreren/account aanmaken
 
@@ -13,7 +38,7 @@ View:
   * Een template: templates/register.html
 
 Controller:
-  * Een bestand application.py
+  * def register () in application.py
   * Een route: /register voor de methodes GET en POST
   * GET:
     * Laat register.html zien
@@ -21,29 +46,30 @@ Controller:
     * Roep register() aan met de ingevulde naam / wachtwoord
     * Sla user_id in database en session op als registreren is gelukt
     * Sla wachtwoord (store_password) op in database als hash
-    * Redirect naar /index.html als registreren is gelukt, anders /register.html
+    * Redirect naar /explore.html als registreren is gelukt
+    * Foutmelding in /apology.html als registreren niet gelukt is
 
 ### Feature 2: inloggen
 
 Model:
-  * Een class user.py
-    * Met attributen: id en naam
+  * User class
+    * Met attributen: user_id, username en hash
   * Een functie: login(name, password)
     * returned de User of None
 
 View:
   * Een template: templates/login.html
-  * Evt. een stylesheet: login.css
 
 Controller:
-  * Een bestand application.py
+  * def login() in application.py
   * Een route: /login voor de methodes GET en POST
   * GET:
     * Laat login.html zien
   * POST:
     * Roep models.user.login() aan met de ingevulde naam / wachtwoord
     * Sla user_id in session op als inloggen is gelukt
-    * Redirect naar /index.html als inloggen is gelukt, anders /login.html
+    * Redirect naar /explore.html als inloggen is gelukt, anders /login.html
+    * Foutmelding in /apology.html als inloggen niet gelukt is
 
 ### Feature 3: uitloggen
 
@@ -53,10 +79,9 @@ Model:
 
 View:
   * Een template: templates/login.html
-  * Evt. een stylesheet: login.css
 
 Controller:
-  * Een bestand application.py
+  * logout() in bestand application.py
   * Een route: /logout
   * Session.clear()
   * Laat login.html zien
@@ -64,160 +89,80 @@ Controller:
 ### Feature 4: foto posten
 
 Model:
-  * Een bestand models/posten.py
-  * Een class photo.py
-    * Met attributen: photo en id (gebruiker)
-  * Een functie: posten(photo, id)
+  * Photo class
+    * Met attributen: photo_id, photo_location, user_id en caption
+  * Een functie: post()
     * Returned photo of None
 
 View:
   * Een template: templates/posten.html
-  * Evt. een stylesheet: posten.css
 
 Controller:
-  * Een bestand application.py
+  * def post() in application.py
   * Een route: /posten voor de methodes GET en POST
   * GET:
     * Laat posten.html zien
   * POST:
-    * Roep models.photo.posten() aan met de geselecteerde foto
+    * Roep post() aan met de geselecteerde foto
     * Sla photo in database op als posten is gelukt
-    * Redirect naar /index.html als posten is gelukt, anders /posten.html
+    * Weergeef foto op zowel profile page en explore page
+    * Redirect naar /explore.html als posten is gelukt, anders /posten.html
 
-### Feature 5: volgen
-
-Model:
-  * Een bestand models/follow.py
-  * Een class following.py
-    * Met attributen: naam en id
-  * Een functie: follow(name, id)
-    * Returned following of None
-  * Een class followers.py
-    * Met attributen: naam en id
-  * Een functie: follower(name, id)
-    * Returned followers of None
-
-View:
-  * Een template: templates/follow.html
-  * Evt. een stylesheet: follow.css
-
-Controller:
-  * Een bestand application.py
-  * Een route: /follow voor de methodes GET en POST
-  * GET:
-    * Laat follow.html zien
-  * POST:
-    * Roep models.follow.following() aan met lijst met mensen die jij volgt
-    * Roep models.follow.followers() aan met een lijst met mensen die jou volgen
-    * Sla follower/following op in database als volgen/gevolgd worden gelukt is
-    * Redirect naar /index.html als volgen is gelukt, anders /follow.html
-
-### Feature 6: index (homepagina/timeline)
+### Feature 5: Explore
 
 Model:
-  * Een bestand models/index.py
-  * Een functie: index()
-    * returned de index of None
+  * Photo class
+    * Met attributen: photo_id, photo_location, user_id, caption, comment_text
+  * Een functie: explore()
+    * returned de explore of None
 
 View:
-  * Een template: templates/index.html
-  * Evt. een stylesheet: index.css
+  * Een template: templates/explore.html
 
 Controller:
-  * Een bestand application.py
-  * Een route: /
+  * def explore() in application.py
+  * Een route: /explore voor de methodes GET en POST
   * GET:
-     * Laat index.html zien
+     * Laat explore.html zien
   * POST:
-    * Roep models.index() aan
-    * Alle foto’s van de mensen die de gebruiker volgt aanroepen en op
-      chronologische volgorde laten zien in een lijst
+    * Roep explore() aan
+      * Alle geuploade foto’s uit database oproepen en random weergeven
+      * Mogelijkheid om comments en likes te geven op posts (slaat likes en comments op in aparte database)
 
-### Feature 7: foto’s liken
+### Feature 6: foto’s liken
 
 Model:
-  * Een bestand models/liken.py
-  * Een class like.py
-    * Met attributen: foto en naam
-  * Een functie: liken(name, photo)
-    * returned de like of None
+  * Like class
+    * Met attributen: photo_id en user_id (genereert like_id)
 
 View:
-  * Een template: templates/liken.java???
-  * Evt. een stylesheet: liken.css
-  * We willen gebruik maken van een plugin
+  * in template: templates/explore.html en templates/profile.html
 
 Controller:
-  * Een bestand application.py
-  * Een route: /liken voor de methodes GET en POST
-  * GET:
-    * Laat liken.java?? zien
+  * def explore() in application.py
   * POST:
-    * Roep models.like.liken() aan
-    * Sla like op, tel bij het aantal likes op bij betreffende foto
-    * Redirect naar /index.html
+    * Roep functie explore()
+    * Trigger voor likeknop
+    * Sla like op in database, tel bij het aantal likes op bij betreffende foto
+    * Redirect naar /explore.html of /profile.html
+    * Weergeef likes bij post, geen weergave van likes op profile pagina
 
-### Feature 8: foto’s commenten
+### Feature 7: foto’s commenten
 
 Model:
-  * Een bestand models/comment.py
-  * Een class com.py
-    * Met attributen: foto en naam
-  * Een functie: comment(name, photo)
-    * returned de com of None
+  * Comment class
+    * Met attributen: photo_id, user_id, comment_text (genereert comment_id)
 
 View:
-  * Een template: templates/comment.java???
-  * Evt. een stylesheet: comment.css
-  * We willen gebruik maken van een plugin
+  * Een template: templates/explore.html en templates/profile.html
 
 Controller:
-  * Een bestand application.py
-  * Een route: /comment voor de methodes GET en POST
+  * def explore() en def profile() in application.py
+  * Een route: /explore en /profile voor de methodes GET en POST
   * GET:
-    * Laat comment.java?? zien
+    * Laat /explore.html en /profile.html zien
   * POST:
-    * Roep models.com.comment() aan
-    * Sla comment op, tel bij het aantal comments op bij betreffende foto, en laat
-      comment onder de foto zien
-    * Redirect naar /index.html
-
- ### URL’s Javascript plugins to use:
-
-#### like button:
-
-    https://github.com/uagrace/like-dislike
-
-    https://www.jqueryscript.net/social-media/Minimal-Like-Dislike-Button-Plugin-with-jQuery-likedislike.html
-
-    firebase:
-
-    http://www.londonacademyofit.co.uk/learning-blog/javascript/add-like-button-blogpostssimple-javascript/
-
-#### real time comment box below picture:
-
-    jquery-comments: http://viima.github.io/jquery-comments/
-
-                     https://blog.pusher.com/build-live-comments-feature-using-javascript/
-
-#### Flask frame:
-
-    http://flask.pocoo.org/
-
-#### Overige bruikbare links:
-
-    Voorbeeld code social code: https://getstream.io/get_started
-
-                                https://getstream.io/docs/#example-apps
-
-                                https://github.com/GetStream/Stream-Example-Py
-
-                                https://github.com/GetStream/Stream-Example-Py/blob/master/templates/activity/aggregated/follow.html
-
-                                https://gist.github.com/tbarbugli/97bf26f400ecf1443ef6
-
-                                https://github.com/tumblr/pytumblr
-
-
-
-
+    * roep explore () en profile()
+    * Sla comment op in database, tel bij het aantal comments op bij betreffende foto
+    * Redirect naar /explore.html of /profile.html
+    * laat comment onder de foto zien + weergeef username die comment geplaatst heeft
