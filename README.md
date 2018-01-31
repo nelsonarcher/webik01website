@@ -64,7 +64,7 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
 ![Imgur](https://i.imgur.com/rGSMN2t.png)
 
 
-#### Website contributie teamleden
+### Website contributie teamleden
 
  * Feature 1: registreren/account aanmaken (Cilia)
 
@@ -84,49 +84,5 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
 
  * Opmaak DESIGN.md (Matthijs)
 
-#### Databronnen
 
-URL’s Javascript plugins to use:
-
-#### like button:
-
-    https://github.com/uagrace/like-dislike
-
-    https://www.jqueryscript.net/social-media/Minimal-Like-Dislike-Button-Plugin-with-jQuery-likedislike.html
-
-    firebase:
-
-    http://www.londonacademyofit.co.uk/learning-blog/javascript/add-like-button-blogpostssimple-javascript/
-
-#### real time comment box below picture:
-
-    jquery-comments: http://viima.github.io/jquery-comments/
-
-                     https://blog.pusher.com/build-live-comments-feature-using-javascript/
-
-#### Flask frame:
-
-    http://flask.pocoo.org/
-
-#### Overige bruikbare links:
-
-    Voorbeeld code social code: https://getstream.io/get_started
-
-                                https://getstream.io/docs/#example-apps
-
-                                https://github.com/GetStream/Stream-Example-Py
-
-                                https://github.com/GetStream/Stream-Example-Py/blob/master/templates/activity/aggregated/follow.html
-
-                                https://gist.github.com/tbarbugli/97bf26f400ecf1443ef6
-
-                                https://github.com/tumblr/pytumblr
-
-
-### Concurrerende websites:
-
- * Insta: strak design, veel functies  gefocust op vrienden en interesse
-
- * Pinterest: mapjes en submappen  focus op niks?  mega database
-
- * Foresquare: Goeie categorieën chart (voor onze website)  locatie gericht, uitgaan, restaurant soort “social tripadviser”
+#### Raadpleeg DESIGN.md voor technische ontwerp
