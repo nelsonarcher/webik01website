@@ -39,7 +39,7 @@ db = SQL("sqlite:///database.db")
 @login_required
 def index():
 
-    return render_template("apology.html")
+    return render_template("explore.html")
 
 @app.route("/explore", methods=["GET", "POST"])
 @login_required
