@@ -85,4 +85,5 @@ Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor h
  * Opmaak DESIGN.md (Matthijs)
 
 
+
 #### Raadpleeg DESIGN.md voor technische ontwerp
