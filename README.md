@@ -1,92 +1,103 @@
 # webik01website
 Git Repo for webik ik01 website
 
-## Projectvoorstel Cilia, Nelson en Matthijs 		Groep IK01
+## Projectvoorstel Cilia en Matthijs 		Groep IK01
+
+### Uitleg projectplan:
+
+Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor hebben is om het platform te richten voor een bepaalde doelgroep. Dit omdat er al veel algemene websites bestaan die zo’n concept hebben zoals Instagram en Pinterest. Wij willen ons gaan focussen op mensen die zelf veel reizen en dit willen delen of mensen die het leuk vinden om foto's te zien van mensen die veel reizen. Reizigers kunnen op ons platform hun reis documenteren d.m.v. foto’s uploaden. Mensen die graag de reizen van ander mensen bekijken kunnen de foto’s van de reizigers liken en erop reageren. Het moet verder een strakke website worden die overzichtelijk en makkelijk in gebruik is waarbij de gebruikers met enkele mouseclicks de site door kunnen browsen.
 
 
+### Website features:
 
-Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor hebben is om het platform te richten op een bepaalde doelgroep. Dit omdat er al veel algemene websites bestaan die zo’n concept hebben zoals Instagram en Pinterest. Wij willen ons gaan focussen op mensen die zelf veel reizen en dit willen delen of mensen die het leuk vinden om mensen te volgen die veel reizen. Reizigers kunnen op ons platform hun reis documenteren aan hun volgers d.m.v. foto’s. Gebruikers kunnen dan mapjes aanmaken waarin de foto’s van hun reizen kunnen worden gesorteerd op bestemming. Hiernaast willen we ook werken met tag’s. Mensen die graag de reizen van ander mensen bekijken kunnen gebruikers volgen en kunnen de foto’s van de reizigers liken en erop reageren. Ook kan de site dus worden doorzocht d.m.v. het zoeken op de bovengenoemde tag’s. Het moet verder een strakke website worden die overzichtelijk is en makkelijk is in gebruik waarbij de gebruikers met enkele mouseclicks de site door kunnen browsen. 
+ * Feature 1: registreren/account aanmaken
 
+ * Feature 2: inloggen
 
+ * Feature 3: uitloggen
 
-#### 1.	Gebruikers kunnen andere gebruikers volgen
+ * Feature 4: foto posten
 
-#### 2.	Gebruikers kunnen een lijst zien van foto’s en verhalen van andere gebruikers die zij volgen (de timeline)
+ * Feature 5: Explore pagina
 
-#### 3.	Gebruikers kunnen gewaarschuwd worden als: 
+ * Feature 6: foto’s liken
 
-	o	er een nieuwe fotos/verhalen zijn geplaatst door 	gebruikers die zij volgen
-
-#### 4.	Gebruikers kunnen fotos/verhalen liken en opslaan
-
-#### 5.	Gebruikers kunnen reageren op fotos/verhalen met tekst, fotos en gifs.
-
-#### 6.	Gebruikers kunnen fotos/verhalen posten, eventueel in mapjes met submapjes.
-
-#### 7.	Gebruikers kunnen zoeken via de zoekfunctie (op #) en via de categorieen button, opgedeeld in een lijst met landen en een lijst met soorten fotos/vehalen (Strand, Bergen, Zee, Natuur, Stad etc. etc.)
-
-#### 8.	Gebruikers kunnen random fotos en verhalen ontdekken (explore/discover)
-
-#### 9.	Gebruikers kunnen hun profiel aanpassen (profielfoto, informatie over jezelf (bio), instellingen)
+ * Feature 7: foto’s commenten
 
 
+### Opzet website:
 
-## Opzet website
+#### 1.	Inlogscherm / registratie account
 
+ * Register (rechtsboven)
+ * Log in (rechtsboven)
+ * Invulveld centraal op de pagina
 
+#### 2.	Explore pagina (Explore)
 
-#### 1.	Landing page
+ * Weergave geuploade foto's vanuit de database (weergave in random volgorde)
+ * Like kunnen geven op een geplaatste foto
+ * Comment plaatsen onder een geplaatste foto
+ * Log out (rechtsboven)
 
-	A.	Sign up (sing up form open)
+#### 3.	Profiel pagina (Profile)
 
-	B.	Log in (rechtsboven)  landing page met login
+ * Persoonlijke pagina van gebruiker
+ * Weergave van geuploade foto's van gebruiker
+ * Mogelijkheid om comments te plaatsen onder de foto
+ * Log out (rechtsboven)
 
+#### 4. Upload pagina (New Post)
 
-
-#### 2.	Timeline met navigatiebalk
-
-	•	Navigatiebalk: (logo) zoekfunctie (op #), foto’s/verhalen plaatsen, ontdekken/nearby, likes, categorieën(landen en categ.), profiel, instellingen.
-
-	•	Timeline, hier zijn de posts van mensen die je volgt te zien.
-
-
-
-#### 3.	Ontdekken pagina: lijkt op timeline maar met random fotos/verhalen//nearby: op locatie.
-
-#### 4.	Profiel pagina: eigen posts
-
-#### 5.	Volgers en Volgend Pagina: mensen die je volg en die jou volgen.
-
-#### 6.	Profiel Instellingen Pagina
-
-
-
-## Databronnen
+ * Mogelijkheid om bestand te selecteren die locaal opgeslagen is op het device die gebruikt wordt
+ * Mogelijkheid om een "caption" mee te geven aan de upload
+ * Upload button om de upload in werking te brengen
+ * Log out (rechtsboven)
 
 
+#### Databronnen
 
-#### 1. http://api.giphy.com
+URL’s Javascript plugins to use:
 
-#### 2. https://developers.facebook.com/docs/facebook-login/web
+#### like button:
 
-#### 3. https://developers.google.com/maps/
+    https://github.com/uagrace/like-dislike
+
+    https://www.jqueryscript.net/social-media/Minimal-Like-Dislike-Button-Plugin-with-jQuery-likedislike.html
+
+    firebase:
+
+    http://www.londonacademyofit.co.uk/learning-blog/javascript/add-like-button-blogpostssimple-javascript/
+
+#### real time comment box below picture:
+
+    jquery-comments: http://viima.github.io/jquery-comments/
+
+                     https://blog.pusher.com/build-live-comments-feature-using-javascript/
+
+#### Flask frame:
+
+    http://flask.pocoo.org/
+
+#### Overige bruikbare links:
+
+    Voorbeeld code social code: https://getstream.io/get_started
+
+                                https://getstream.io/docs/#example-apps
+
+                                https://github.com/GetStream/Stream-Example-Py
+
+                                https://github.com/GetStream/Stream-Example-Py/blob/master/templates/activity/aggregated/follow.html
+
+                                https://gist.github.com/tbarbugli/97bf26f400ecf1443ef6
+
+                                https://github.com/tumblr/pytumblr
 
 
+### Concurrerende websites:
 
-## Externe componenten
+ * Insta: strak design, veel functies  gefocust op vrienden en interesse
 
+ * Pinterest: mapjes en submappen  focus op niks?  mega database
 
-
-#### 1. https://getbootstrap.com/
-
-
-
-## Concurrerende websites
-
-
-
-#### 1. Insta: strak design, veel functies  gefocust op vrienden en interesse
-
-#### 2. Pinterest: mapjes en submappen  focus op niks?  mega database
-
-#### 3. Foresquare: Goeie categorieën chart (voor onze website)  locatie gericht, uitgaan, restaurant soort “social tripadviser”
+ * Foresquare: Goeie categorieën chart (voor onze website)  locatie gericht, uitgaan, restaurant soort “social tripadviser”
