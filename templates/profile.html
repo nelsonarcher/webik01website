@@ -7,6 +7,7 @@
 
 {% block main %}
     <h4>Profile page</h4>
+<<<<<<< HEAD
     {% for username in usernames %}
         <h3><p>@{{ username }}</p></h3>
     {% endfor %}
@@ -38,6 +39,35 @@
                             </p>
                         </div>
                 </div>
+=======
+
+<div class="well">
+    <div class="row">
+        {% for photo in photos %}
+        <div class="col-sm-4 col-md-4">
+            <div class="thumbnail">
+                    <img alt="100%x200" src="{{ url_for('static', filename='upload_images/' + photo.photo_location) }}"  data-holder-rendered="true" style="height: 300px; width: 300px; display: block;">
+                    <div class="caption">
+                        {% for username in usernames %}
+                            <h4><p>@{{ username }}</p></h4>
+                        {% endfor %}
+                        <figcaption class="caption", style="float: left; margin-right: 0%; margin-bottom: 0em;"> {{ photo.caption }} </figcaption>
+                        <p>
+                            <button type="button" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+                        </p>
+                        <p>
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="textarea" rows="20" cols="30" name="comments" placeholder="Write a comment about this photo"/>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-default" type="submit">Comment</button>
+                            </div>
+                        </fieldset>
+                        </p>
+                    </div>
+>>>>>>> 56c3b0dca035873a2ea8a148e82acfcfa037a535
             </div>
             {% endfor %}
         </div>

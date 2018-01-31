@@ -52,8 +52,14 @@ def explore():
     userdict = {user["id"] : user["username"] for user in user_names}
 
     if request.method == "POST":
-        photo_id = request.form.get("likeknop")
-        db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
+        if request.form.get("likeknop"):
+            photo_id = request.form.get("likeknop")
+            db.execute("INSERT INTO likes (photo_id, user_id) VALUES (:photo_id, :user_id)", photo_id=int(photo_id), user_id=session["user_id"])
+
+        elif request.form.get("commentknop"):
+            photo_id = request.form.get("commentknop")
+            comment = request.form.get("comment")
+            db.execute("INSERT INTO comments (photo_id, user_id, comment_text) VALUES (:photo_id, :user_id, :comment)", photo_id=int(photo_id), user_id=session["user_id"], comment=str(comment))
 
     liked_photos = db.execute("SELECT photo_id FROM likes WHERE user_id=:user_id", user_id=session["user_id"])
     photo_likes = []
