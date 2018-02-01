@@ -6,6 +6,8 @@
 
 Wij willen gaan voor het ‘photo sharing’ concept. Het idee dat we hiervoor hebben is om het platform te richten voor een bepaalde doelgroep. Dit omdat er al veel algemene websites bestaan die zo’n concept hebben zoals Instagram en Pinterest. Wij willen ons gaan focussen op mensen die zelf veel reizen en dit willen delen of mensen die het leuk vinden om foto's te zien van mensen die veel reizen. Reizigers kunnen op ons platform hun reis documenteren d.m.v. foto’s uploaden. Mensen die graag de reizen van ander mensen bekijken kunnen de foto’s van de reizigers liken en erop reageren. Het moet verder een strakke website worden die overzichtelijk en makkelijk in gebruik is waarbij de gebruikers met enkele mouseclicks de site door kunnen browsen.
 
+##### YouTube video: 
+[linkname](https://youtu.be/rrf-MeKzJ-A)
 
 ### Website features:
 
